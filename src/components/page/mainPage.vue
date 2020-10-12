@@ -22,7 +22,8 @@
                 <el-card shadow="hover" style="height:252px;">
                     <div slot="header" class="clearfix">
                         <span>园区车辆在线情况</span>
-                    </div>XX酒店
+                    </div>
+                    XX酒店
                     <el-progress :percentage="0.0" color="#42b983"></el-progress>曹光彪楼区域
                     <el-progress :percentage="0.0" color="#f1e05a"></el-progress>云乐实验场
                     <el-progress :percentage="0.0"></el-progress>
