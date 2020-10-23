@@ -5,6 +5,10 @@
                 <el-card shadow="hover">
                     地图监控<v-parser></v-parser>
                 </el-card>
+                <el-card shadow="hover">
+                    百度地图
+                    <div id="container" style="height:500px"></div>
+                </el-card>
             </el-col>
             
             <el-col :span="12">
@@ -15,6 +19,7 @@
         </el-row>
     </div>
 </template>
+
 
 <script>
 import Schart from 'vue-schart';
@@ -27,16 +32,6 @@ export default {
     data() {
         return {
             name: localStorage.getItem('ms_username'),
-            todoList: [
-                {
-                    title: '曹光彪区域 车辆编号:0000000000 到 站点 教九',
-                    status: false
-                },
-                {
-                    title: '曹光彪区域 车辆编号:0000000000 到 站点 曹光彪',
-                    status: true
-                }
-            ],
             data: [
                 {
                     name: '2018/09/04',
@@ -66,50 +61,7 @@ export default {
                     name: '2018/09/10',
                     value: 1065
                 }
-            ],
-            options: {
-                type: 'bar',
-                title: {
-                    text: '最近一周各品类销售图'
-                },
-                xRorate: 25,
-                labels: ['周一', '周二', '周三', '周四', '周五'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 190, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [144, 198, 150, 235, 120]
-                    }
-                ]
-            },
-            options2: {
-                type: 'line',
-                title: {
-                    text: '最近几个月各品类销售趋势图'
-                },
-                labels: ['6月', '7月', '8月', '9月', '10月'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 150, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [74, 118, 200, 235, 90]
-                    }
-                ]
-            }
+            ]
         };
     },
     components: {
@@ -122,10 +74,8 @@ export default {
             return this.name === 'admin' ? '超级管理员' : '普通用户';
         }
     },
-    // created() {
-    //     this.handleListener();
-    //     this.changeDate();
-    // },
+    created() {
+    },
     // activated() {
     //     this.handleListener();
     // },

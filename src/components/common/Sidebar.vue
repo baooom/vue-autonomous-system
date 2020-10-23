@@ -69,7 +69,7 @@ export default {
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
-                    title: '图表'
+                    title: '数字孪生演示'
                 },
                 {
                     icon: 'el-icon-lx-global',
