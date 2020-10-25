@@ -2,12 +2,12 @@
     <div>
         <el-row :gutter="20">
             <el-col :span="12">
-                <el-card shadow="hover">
+                <!--el-card shadow="hover">
                     地图监控<v-parser></v-parser>
-                </el-card>
+                </el-card-->
                 <el-card shadow="hover">
                     百度地图
-                    <div id="container" style="height:500px"></div>
+                    <div id="container" style="height:600px"></div>
                 </el-card>
             </el-col>
             
@@ -27,41 +27,41 @@ import bus from '../common/bus';
 //导入threee.js
 import vParser from '@/components/common/XodrParser.vue'
 import vCarState from '@/components/common/CarState.vue'
+import VueResource from 'vue-resource'
+import Vue from 'vue'
+Vue.use(VueResource);
+
 export default {
     name: 'dashboard',
     data() {
         return {
             name: localStorage.getItem('ms_username'),
-            data: [
-                {
-                    name: '2018/09/04',
-                    value: 1083
-                },
-                {
-                    name: '2018/09/05',
-                    value: 941
-                },
-                {
-                    name: '2018/09/06',
-                    value: 1139
-                },
-                {
-                    name: '2018/09/07',
-                    value: 816
-                },
-                {
-                    name: '2018/09/08',
-                    value: 327
-                },
-                {
-                    name: '2018/09/09',
-                    value: 228
-                },
-                {
-                    name: '2018/09/10',
-                    value: 1065
-                }
-            ]
+            url:'114.55.100.152:8080',
+            map: null,
+            index:0,
+            path:[{
+                'lng': 120.11853426,
+                'lat': 30.261610015
+            }, {
+                'lng': 120.118602567,
+                'lat': 30.2618395767
+            }, {
+                'lng': 120.117588913,
+                'lat': 30.2621267167
+            }, {
+                'lng': 120.117404863,
+                'lat': 30.26219829
+            }, {
+                'lng': 120.117244887,
+                'lat': 30.2617942267
+            }, {
+                'lng': 120.116989627,
+                'lat': 30.2612456667
+            }, {
+                'lng': 120.11721955,
+                'lat': 30.2613977667
+            }],
+            line:[]
         };
     },
     components: {
@@ -75,38 +75,56 @@ export default {
         }
     },
     created() {
+        this.$nextTick(() => {
+            this.init();
+            setInterval(this.fetch, 1000);
+        })
     },
-    // activated() {
-    //     this.handleListener();
-    // },
-    // deactivated() {
-    //     window.removeEventListener('resize', this.renderChart);
-    //     bus.$off('collapse', this.handleBus);
-    // },
     methods: {
-        changeDate() {
-            const now = new Date().getTime();
-            this.data.forEach((item, index) => {
-                const date = new Date(now - (6 - index) * 86400000);
-                item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-            });
+        init(){
+            this.map = new BMap.Map('container');
+            var point = new BMap.Point(this.path[0]['lng'], this.path[0]['lat']); 
+            this.map.centerAndZoom(point, 19);
+            this.map.enableScrollWheelZoom(true); 
+            var marker = new BMap.Marker(point);
+            this.map.addOverlay(marker);            
+            console.log("map init");
+        },
+        fetch(){
+            var p = new BMap.Point(this.path[this.index]['lng'], this.path[this.index]['lat']);
+            setTimeout(function(map,array){
+                var convertor = new BMap.Convertor();
+                var pointArr = [];
+                pointArr.push(p);
+                convertor.translate(pointArr, 1, 5, function(data){
+                    if(data.status === 0) {
+                        map.clearOverlays();
+                        array.push(data.points[0]);
+                        var polyline = new BMap.Polyline(array, {strokeColor: 'blue',strokeWeight: 2,strokeOpacity: 0.5});
+                        map.addOverlay(polyline);
+                        var marker = new BMap.Marker(data.points[0]);
+                        map.addOverlay(marker);
+                        var label = new BMap.Label("车辆位置",{offset:new BMap.Size(20,-10)});
+                        marker.setLabel(label); //添加百度label
+                        map.setCenter(data.points[0]);
+                    }
+                });
+            }(this.map, this.line), 1000);
+            this.index = this.index + 1;
+        //    this.$http.get('http://'+this.url+'/api/v2/task/queryAll').then(response=>{
+        //         if(response.body['code'] == 0){
+        //             console.log('success');
+        //             this.tasks = response.body.attach;
+        //         }else{
+        //             console.log('data not exists')
+        //         }
+        //     },response=>{
+        //         console.log('fail');
+        //     });
         }
-        // handleListener() {
-        //     bus.$on('collapse', this.handleBus);
-        //     // 调用renderChart方法对图表进行重新渲染
-        //     window.addEventListener('resize', this.renderChart);
-        // },
-        // handleBus(msg) {
-        //     setTimeout(() => {
-        //         this.renderChart();
-        //     }, 200);
-        // },
-        // renderChart() {
-        //     this.$refs.bar.renderChart();
-        //     this.$refs.line.renderChart();
-        // }
     }
 };
+
 </script>
 
 

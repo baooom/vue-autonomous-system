@@ -57,8 +57,8 @@
                             <div class="grid-content grid-con-3">
                                 <i class="el-icon-lx-goods grid-con-icon"></i>
                                 <div class="grid-cont-right">
-                                    <div class="grid-num">100</div>
-                                    <div>历史订单数量</div>
+                                    <div class="grid-num">{{tasks.length}}</div>
+                                    <div>任务数量</div>
                                 </div>
                             </div>
                         </el-card>
@@ -126,9 +126,10 @@ export default {
                 ]
             },
             connected_car:[],
+            tasks:[],   
             parks:[],
             cars_status:[],
-            url:'10.192.153.229:8080'
+            url:'114.55.100.152:8080'
         };
     },
     components: {
@@ -158,8 +159,10 @@ export default {
             console.log('fetch data');
             this.$http.get('http://'+this.url+'/api/v2/info/car/connected').then(response=>{
                 if(response.body["code"] == 0){
+                    console.log("success");
                     this.connected_car = response.body.attach;
                 }else{
+                    console.log("fail");
                     this.connected_car = [];
                 }
             }, response=>{
@@ -178,6 +181,18 @@ export default {
             // {
             //         params:{vin:this.connected_car[i]}
             // }
+            //获取目前的任务数量
+            this.$http.get('http://'+this.url+'/api/v2/task/queryAll').then(response=>{
+                if(response.body['code'] == 0){
+                    console.log('success');
+                    this.tasks = response.body.attach;
+                }else{
+                    console.log('data not exists')
+                }
+            },response=>{
+                console.log('fail');
+            });
+
             var tmp_list = [];
             var flag = false;
             for(var i=0;i<this.connected_car.length;i++){

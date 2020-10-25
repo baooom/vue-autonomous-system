@@ -7,113 +7,48 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_830376_qzecyukz0s.css">
     <script type="text/javascript" src="https://cdn.aodianyun.com/static/jquery/jquery-1.7.2.min.js"></script><!-- jquery地址也可使用您的地址 -->
     <script type="text/javascript" src="https://cdn.aodianyun.com/lss/aodianplays/player.js"></script>
-    <script type="text/javascript" src="https//api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g"></script>
     <script>
-      function initialize() { 
-        console.log("map init");
-        var mp = new BMap.Map('container'); 
-        var path = [{
-            'lng': 120.11853426,
-            'lat': 30.261610015
-        }, {
-            'lng': 120.118602567,
-            'lat': 30.2618395767
-        }, {
-            'lng': 120.117588913,
-            'lat': 30.2621267167
-        }, {
-            'lng': 120.117404863,
-            'lat': 30.26219829
-        }, {
-            'lng': 120.117244887,
-            'lat': 30.2617942267
-        }, {
-            'lng': 120.116989627,
-            'lat': 30.2612456667
-        }, {
-            'lng': 120.11721955,
-            'lat': 30.2613977667
-        }];
-
-        var points = [];
-        // //坐标转换完之后的回调函数
-        translateCallback = function (data){
-          if(data.status === 0) {
-            points.push(data.points[0]);
-            // var marker = new BMap.Marker(data.points[0]);
-            // mp.addOverlay(marker);
-            // var label = new BMap.Label("转换后的百度坐标（正确）",{offset:new BMap.Size(20,-10)});
-            // marker.setLabel(label); //添加百度label
-            // mp.setCenter(data.points[0]);
-          }
-        };
-        for (var i = 0; i < path.length; i++) {
-            var convertor = new BMap.Convertor();
-            var pointArr = [];
-            pointArr.push(ggPoint);
-            convertor.translate(pointArr, 1, 5, translateCallback)
-            point.push(new BMapGL.Point(path[i].lng, path[i].lat));
-        }
-        var pl = new BMapGL.Polyline(point);
-
-        var p = new BMapGL.Point(path[0].lng, path[0].lat);
-        // var marker = new BMapGL.Marker(p);
-        // mp.addOverlay(marker);
-        mp.centerAndZoom(p, 15); 
-
-        
-        // var trackAni = new BMapGLLib.TrackAnimation(bmap, pl, {
-        //     overallView: true, // 动画完成后自动调整视野到总览
-        //     tilt: 30,          // 轨迹播放的角度，默认为55
-        //     duration: 20000,   // 动画持续时长，默认为10000，单位ms
-        //     delay: 3000        // 动画开始的延迟，默认0，单位ms
-        // });
-
-        // trackAni.start();
-
-        // var ggPoint = new BMap.Point(path[3].lng, path[3].lat);
-        // mp.centerAndZoom(ggPoint, 17); 
-        // mp.addControl(new BMap.NavigationControl());
-
-        
-
-        
-
-        setTimeout(function(){
-        }, 1000);
-
-        mp.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-        // mp.setHeading(64.5);
-	      // mp.setTilt(73);
-
-        // translateCallback = function (data){
-        //   if(data.status === 0) {
-        //     var marker = new BMapGL.Marker(data.points[0]);
-        //     mp.addOverlay(marker);
-        //     var label = new BMapGL.Label("转换后的百度坐标（正确）",{offset:new BMap.Size(20,-10)});
-        //     marker.setLabel(label); //添加百度label
-        //     mp.setCenter(data.points[0]);
-        //   }
-        // }
-
-        // setTimeout(function(){
-        //     var convertor = new BMap.Convertor();
-        //     var pointArr = [];
-        //     pointArr.push(ggPoint);
-        //     convertor.translate(pointArr, 1, 5, translateCallback)
-        // }, 1000);
-      } 
+      // function initialize() { 
+      //   var map = new BMap.Map('container'); 
+      //   var path = [{
+      //           'lng': 120.11853426,
+      //           'lat': 30.261610015
+      //       }, {
+      //           'lng': 120.118602567,
+      //           'lat': 30.2618395767
+      //       }, {
+      //           'lng': 120.117588913,
+      //           'lat': 30.2621267167
+      //       }, {
+      //           'lng': 120.117404863,
+      //           'lat': 30.26219829
+      //       }, {
+      //           'lng': 120.117244887,
+      //           'lat': 30.2617942267
+      //       }, {
+      //           'lng': 120.116989627,
+      //           'lat': 30.2612456667
+      //       }, {
+      //           'lng': 120.11721955,
+      //           'lat': 30.2613977667
+      //       }];
+      //       //var point = new BMap.Point(path[0].lat, path[0].lat); 
+      //       var point = new BMap.Point(120.11853426, 30.261610015); 
+      //       map.centerAndZoom(point, 16);
+      //       map.enableScrollWheelZoom(true); 
+     
+      // } 
           
-      function loadScript() { 
-        var script = document.createElement("script"); 
-        script.src = "https://api.map.baidu.com/api?v=1.0&type=webgl&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g&callback=initialize";
-        // script.src = "https://api.map.baidu.com/api?v=2.0&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g&callback=initialize";
-        document.body.appendChild(script); 
-      } 
+      // function loadScript() { 
+      //   var script = document.createElement("script"); 
+      //   //script.src = "https://api.map.baidu.com/api?v=1.0&type=webgl&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g&callback=initialize";
+      //   script.src = "https://api.map.baidu.com/api?v=2.0&ak=Iy5GLGlxnvFNgSlouY6LApuToLCX8q0g&callback=initialize";
+      //   document.body.appendChild(script); 
+      // } 
           
-      window.onload = loadScript;
-      console.log("map api loaded") 
+      // window.onload = loadScript;
+      // console.log("map api loaded") 
     </script>
     <title>vue-manage-system-1</title>
   </head>

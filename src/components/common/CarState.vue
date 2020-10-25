@@ -9,10 +9,10 @@
             <el-card shadow="hover" style="height:300px;">
                 车辆的信息
                 <div v-if="info_avail == false">
-                    false
+                    Please select a car!
                 </div>
                 <div v-else>
-                    true
+                   
                 </div>
             </el-card>
             </el-col>
@@ -61,11 +61,12 @@ export default {
     },
     data() {
         return {
-            url:'10.192.153.229:8080',
+            url:'114.55.100.152:8080',
             vin:'0',
             info_avail:false,
             connected_car:[],
             selected_car:"",
+            selected_car_pos:{},
             station_info:[],
             select_station:"",
             form: {
@@ -110,8 +111,11 @@ export default {
             this.$http.get('http://'+this.url+'/api/v2/info/car/' + this.vin  + '/position').then(response=>{
                 if(response.body["code"] == 0){
                     console.log("success");
+                    this.info_avail = true;
+                    this.selected_car_pos = response.body.attach;
                 }else{
                     console.log("data not exists");
+                    this.info_avail = false;
                 }
             } , response=>{
                 console.log("fail");
@@ -155,6 +159,8 @@ export default {
         },
         selectTrigger(val) {
             console.log("trigger")
+            //设置vin
+            this.vin = String(val);
             //获取vin对应的park 然后再查询对应的站点
             this.$http.get('http://' + this.url + '/api/v2/info/car/' + String(val) + '/stations').then(response=>{
                 if(response.body["code"] == 0){
