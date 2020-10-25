@@ -19,5 +19,7 @@
 基于 Vue + Element UI 的后台管理系统解决方案。
 
 1.npm install //安装项目依赖 如果安装失败 可以使用cnpm
+
 2.npm run serve //开启服务器
+
 3.npm run build //执行构建命令，生成的dist文件夹放在服务器下即可访问
