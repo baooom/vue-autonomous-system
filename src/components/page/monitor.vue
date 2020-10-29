@@ -5,7 +5,7 @@
                 <!--el-card shadow="hover">
                     地图监控<v-parser></v-parser>
                 </el-card-->
-                <el-card shadow="hover">
+                <el-card shadow="hover" >
                     百度地图
                     <div id="container" style="height:600px"></div>
                 </el-card>
@@ -13,7 +13,7 @@
             
             <el-col :span="12">
                 <el-card shadow="hover">
-                    车辆监控<v-car-state></v-car-state>
+                    车辆监控<v-car-state @transferVin="getVin"></v-car-state>
                 </el-card>
             </el-col>
         </el-row>
@@ -29,6 +29,7 @@ import vParser from '@/components/common/XodrParser.vue'
 import vCarState from '@/components/common/CarState.vue'
 import VueResource from 'vue-resource'
 import Vue from 'vue'
+import GLOBALDATA from '../common/globalData';
 Vue.use(VueResource);
 
 export default {
@@ -36,7 +37,7 @@ export default {
     data() {
         return {
             name: localStorage.getItem('ms_username'),
-            url:'114.55.100.152:8080',
+            url:GLOBALDATA.url,
             map: null,
             index:0,
             path:[{
@@ -61,7 +62,8 @@ export default {
                 'lng': 120.11721955,
                 'lat': 30.2613977667
             }],
-            line:[]
+            line:[],
+            selected_car:0
         };
     },
     components: {
@@ -90,39 +92,50 @@ export default {
             this.map.addOverlay(marker);            
             console.log("map init");
         },
+        getVin(msg){
+            console.log("---------------msg transfer")
+            this.selected_car = msg;
+        },
         fetch(){
-            var p = new BMap.Point(this.path[this.index]['lng'], this.path[this.index]['lat']);
-            setTimeout(function(map,array){
-                var convertor = new BMap.Convertor();
-                var pointArr = [];
-                pointArr.push(p);
-                convertor.translate(pointArr, 1, 5, function(data){
-                    if(data.status === 0) {
-                        map.clearOverlays();
-                        array.push(data.points[0]);
-                        var polyline = new BMap.Polyline(array, {strokeColor: 'blue',strokeWeight: 2,strokeOpacity: 0.5});
-                        map.addOverlay(polyline);
-                        var marker = new BMap.Marker(data.points[0]);
-                        map.addOverlay(marker);
-                        var label = new BMap.Label("车辆位置",{offset:new BMap.Size(20,-10)});
-                        marker.setLabel(label); //添加百度label
-                        map.setCenter(data.points[0]);
-                    }
-                });
-            }(this.map, this.line), 1000);
-            this.index = this.index + 1;
-        //    this.$http.get('http://'+this.url+'/api/v2/task/queryAll').then(response=>{
-        //         if(response.body['code'] == 0){
-        //             console.log('success');
-        //             this.tasks = response.body.attach;
-        //         }else{
-        //             console.log('data not exists')
-        //         }
-        //     },response=>{
-        //         console.log('fail');
-        //     });
+            this.$http.get('http://'+this.url+'/api/v2/info/car/gps/'+this.selected_car).then(response=>{
+                if(response.body['code'] == 0){
+                    var tmp = response.body.attach;
+                    console.log(tmp);
+                    var lng = tmp['longitude'];
+                    var lat = tmp['latitude'];
+                    if(lng < 0.1)
+                        return;
+                    if(lat < 0.1)
+                        return;
+                    console.log(lng,lat)
+                    var p = new BMap.Point(lng, lat);
+                    setTimeout(function(map,array){
+                        var convertor = new BMap.Convertor();
+                        var pointArr = [];
+                        pointArr.push(p);
+                        convertor.translate(pointArr, 1, 5, function(data){
+                            if(data.status === 0) {
+                                map.clearOverlays();
+                                array.push(data.points[0]);
+                                var polyline = new BMap.Polyline(array, {strokeColor: 'blue',strokeWeight: 2,strokeOpacity: 0.5});
+                                map.addOverlay(polyline);
+                                var marker = new BMap.Marker(data.points[0]);
+                                map.addOverlay(marker);
+                                var label = new BMap.Label("车辆位置",{offset:new BMap.Size(20,-10)});
+                                marker.setLabel(label); //添加百度label
+                                map.setCenter(data.points[0]);
+                            }
+                        });
+                    }(this.map, this.line), 1000);
+                    this.index = this.index + 1;
+                }else{
+                    console.log('data not exists')
+                }
+            },response=>{
+                console.log('fail');
+            });
         }
-    }
+    }                            
 };
 
 </script>

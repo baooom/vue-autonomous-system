@@ -12,7 +12,7 @@
                     </div>
                     <div class="user-info-list">
                         上次登录时间：
-                        <span>2020-10-06</span>
+                        <span>2020-10-31</span>
                     </div>
                     <div class="user-info-list">
                         上次登录地点：
@@ -74,7 +74,7 @@
                             <template slot-scope="scope">
                                 <div
                                     class="todo-item"
-                                >车辆VIN: {{scope.row.vin}}  x: {{scope.row.x}}  y: {{scope.row.y}} z: {{scope.row.z}}</div>
+                                >车辆VIN: {{scope.row.vin}}  位置信息  x: {{scope.row.x.toFixed(3)}}  y: {{scope.row.y.toFixed(3)}} z: {{scope.row.z.toFixed(3)}}</div>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -100,6 +100,7 @@ import vParser from '@/components/common/XodrParser.vue'
 import vCarState from '@/components/common/CarState.vue'
 import VueResource from 'vue-resource'
 import Vue from 'vue'
+import GLOBALDATA from '../common/globalData'
 Vue.use(VueResource);
 
 export default {
@@ -129,7 +130,8 @@ export default {
             tasks:[],   
             parks:[],
             cars_status:[],
-            url:'114.55.100.152:8080'
+            url:GLOBALDATA.url
+            //'114.55.100.152:8080'
         };
     },
     components: {

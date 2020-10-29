@@ -64,6 +64,7 @@
 import { fetchData } from '../../api/index';
 import VueResource from 'vue-resource';
 import Vue from 'vue';
+import GLOBALDATA from '../common/globalData';
 Vue.use(VueResource);
 export default {
     name: 'basetable',
@@ -96,7 +97,7 @@ export default {
             form: {},
             idx: -1,
             id: -1,
-            url:'114.55.100.152:8080',
+            url:GLOBALDATA.url,
             tasks:[]
         };
     },

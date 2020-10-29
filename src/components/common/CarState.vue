@@ -12,7 +12,9 @@
                     Please select a car!
                 </div>
                 <div v-else>
-                   
+                    <div>x:{{(selected_car_pos["x"]).toFixed(3)}}</div>
+                    <div>y:{{(selected_car_pos["y"]).toFixed(3)}}</div>
+                    <div>z:{{(selected_car_pos["z"]).toFixed(3)}}</div>
                 </div>
             </el-card>
             </el-col>
@@ -48,6 +50,7 @@
 
 import VueResource from 'vue-resource'
 import Vue from 'vue'
+import GLOBALDATA from '../common/globalData'
 Vue.use(VueResource);
 
 
@@ -61,7 +64,7 @@ export default {
     },
     data() {
         return {
-            url:'114.55.100.152:8080',
+            url:GLOBALDATA.url,
             vin:'0',
             info_avail:false,
             connected_car:[],
@@ -106,13 +109,14 @@ export default {
             console.log(objectPlayer)
         },
         fetch(){
-            
             //获取车辆的信息
+
             this.$http.get('http://'+this.url+'/api/v2/info/car/' + this.vin  + '/position').then(response=>{
                 if(response.body["code"] == 0){
                     console.log("success");
                     this.info_avail = true;
                     this.selected_car_pos = response.body.attach;
+
                 }else{
                     console.log("data not exists");
                     this.info_avail = false;
@@ -142,11 +146,9 @@ export default {
                     break;
                 }
             }
-            this.$http.post('http://'+this.url+'/api/v2/order/station/add',{
+            this.$http.post('http://'+this.url+'/api/v2/auto/car/trj/station',{
                 vin:this.selected_car,
-                stationName:this.select_station,
-                x:x,
-                y:y
+                goal:this.select_station
             },{emulateJSON: true}).then(response=>{
                 if(response.body["code"] == 0){
                     console.log("success");
@@ -159,6 +161,8 @@ export default {
         },
         selectTrigger(val) {
             console.log("trigger")
+            //事件触发传递数据
+            this.$emit('transferVin', val);
             //设置vin
             this.vin = String(val);
             //获取vin对应的park 然后再查询对应的站点
