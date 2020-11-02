@@ -7,19 +7,6 @@
         <el-row :gutter="10">
             <el-col :span="12">
             <el-card shadow="hover" style="height:300px;">
-                车辆的信息
-                <div v-if="info_avail == false">
-                    Please select a car!
-                </div>
-                <div v-else>
-                    <div>x:{{(selected_car_pos["x"]).toFixed(3)}}</div>
-                    <div>y:{{(selected_car_pos["y"]).toFixed(3)}}</div>
-                    <div>z:{{(selected_car_pos["z"]).toFixed(3)}}</div>
-                </div>
-            </el-card>
-            </el-col>
-            <el-col :span="12">
-            <el-card shadow="hover" style="height:300px;">
                 选择网约任务
                 <el-row :gutter="20">
                     请选择车辆
@@ -41,6 +28,38 @@
                         </el-form-item>
                     </el-form>
                 </el-row>
+            </el-card>
+            
+            
+            </el-col>
+            <el-col :span="12">
+            <el-card shadow="hover" style="height:300px;">
+                选择数字孪生车辆(S开头)
+                <el-row :gutter="20">
+                    请选择车辆
+                    <el-select placeholder="数字孪生车辆VIN" v-model="virtual_selected_car">
+                        <el-option v-for="(item, index) in connected_car" v-bind:key="index" v-bind:label="item" v-bind:value="item"></el-option>
+                    </el-select>
+                </el-row>
+                <el-row>
+                    <el-form ref="form" :model="form" label-width="80px">
+                        <el-form-item>
+                                <el-button type="primary" @click="chooseRemote">提交</el-button>
+                                <el-button>取消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-row>
+            </el-card>
+            <el-card shadow="hover" style="height:300px;">
+                车辆的信息
+                <div v-if="info_avail == false">
+                    Please select a car!
+                </div>
+                <div v-else>
+                    <div>x:{{(selected_car_pos["x"]).toFixed(3)}}</div>
+                    <div>y:{{(selected_car_pos["y"]).toFixed(3)}}</div>
+                    <div>z:{{(selected_car_pos["z"]).toFixed(3)}}</div>
+                </div>
             </el-card>
             </el-col>
         </el-row>
@@ -70,6 +89,7 @@ export default {
             connected_car:[],
             selected_car:"",
             selected_car_pos:{},
+            virtual_selected_car:"",
             station_info:[],
             select_station:"",
             form: {
@@ -149,6 +169,20 @@ export default {
             this.$http.post('http://'+this.url+'/api/v2/auto/car/trj/station',{
                 vin:this.selected_car,
                 goal:this.select_station
+            },{emulateJSON: true}).then(response=>{
+                if(response.body["code"] == 0){
+                    console.log("success");
+                }else{
+                    console.log("data not exists");
+                }
+            } , response=>{
+                console.log("fail");
+            });
+        },
+        chooseRemote(){
+            //选择远程自动驾驶车辆
+            this.$http.post('http://'+this.url+'/api/v2/info/car/choose/remote',{
+                vin:this.virtual_selected_car
             },{emulateJSON: true}).then(response=>{
                 if(response.body["code"] == 0){
                     console.log("success");

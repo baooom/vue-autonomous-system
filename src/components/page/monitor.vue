@@ -117,8 +117,8 @@ export default {
                             if(data.status === 0) {
                                 map.clearOverlays();
                                 array.push(data.points[0]);
-                                var polyline = new BMap.Polyline(array, {strokeColor: 'blue',strokeWeight: 2,strokeOpacity: 0.5});
-                                map.addOverlay(polyline);
+                                //var polyline = new BMap.Polyline(array, {strokeColor: 'blue',strokeWeight: 2,strokeOpacity: 0.5});
+                                //map.addOverlay(polyline);
                                 var marker = new BMap.Marker(data.points[0]);
                                 map.addOverlay(marker);
                                 var label = new BMap.Label("车辆位置",{offset:new BMap.Size(20,-10)});
