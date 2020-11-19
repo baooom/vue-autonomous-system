@@ -58,8 +58,13 @@ export default {
             items: [
                 {
                     icon: 'el-icon-lx-home',
-                    index: 'dashboard',
+                    index: 'first',
                     title: '系统首页'
+                },
+                {
+                    icon: 'el-icon-lx-home',
+                    index: 'dashboard',
+                    title: '后台数据'
                 },
                 {
                     icon: 'el-icon-lx-cascades',
@@ -69,12 +74,22 @@ export default {
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
-                    title: '数字孪生演示'
+                    title: '云远程遥控'
                 },
                 {
                     icon: 'el-icon-lx-global',
                     index: 'monitor',
                     title: '云远程监控'
+                },
+                {
+                    icon: 'el-icon-lx-global',
+                    index: 'upload',
+                    title: '地图管理(渲染高精度地图)'
+                },
+                {
+                    icon: 'el-icon-lx-global',
+                    index: 'form',
+                    title: '园区管理'
                 }
             ]
         };

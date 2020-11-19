@@ -9,13 +9,13 @@
         </div>
         <div class="container">
             <el-table
-                :data="tableData"
+                :data="tasks"
                 border
                 class="table"
                 ref="multipleTable"
                 header-cell-class-name="table-header"
                 @selection-change="handleSelectionChange">
-                <el-table-column prop="taskId" label="ID" width="55" align="center"></el-table-column>
+                <el-table-column prop="taskId" label="ID" width="255" align="center"></el-table-column>
                 <el-table-column prop="vin" label="车辆VIN"></el-table-column>
                 <el-table-column label="目标站">
                     <template slot-scope="scope">{{scope.row.to}}</template>
@@ -173,7 +173,6 @@ export default {
                     console.log('success');
                     this.tasks = response.body.attach;
                     this.pageTotal = this.tasks.length;
-                    console.log(this.pageTotal);
                 }else{
                     console.log('data not exists')
                 }
