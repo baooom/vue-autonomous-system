@@ -64,22 +64,22 @@ export default {
                 {
                     icon: 'el-icon-lx-home',
                     index: 'dashboard',
-                    title: '后台数据'
+                    title: '园区车辆数据统计'
+                },
+                {
+                    icon: 'el-icon-lx-global',
+                    index: 'monitor',
+                    title: '园区网约车辆派发'
                 },
                 {
                     icon: 'el-icon-lx-cascades',
                     index: 'table',
-                    title: '网约调度任务'
+                    title: '园区网约调度任务'
                 },
                 {
                     icon: 'el-icon-pie-chart',
                     index: 'charts',
                     title: '云远程遥控'
-                },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'monitor',
-                    title: '云远程监控'
                 },
                 {
                     icon: 'el-icon-lx-global',

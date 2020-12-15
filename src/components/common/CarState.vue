@@ -1,21 +1,17 @@
 <template>
     <div>
-        <el-card shadow="hover" style="height:500px;">
-            这里面显示视频
-            <div id="play"></div>
-        </el-card>
         <el-row :gutter="10">
             <el-col :span="12">
-            <el-card shadow="hover" style="height:300px;">
-                选择网约任务
+            
+            <el-card shadow="hover" style="height:155px;">
                 <el-row :gutter="20">
-                    请选择车辆
+                    车辆选择
                     <el-select placeholder="车辆VIN" v-model="selected_car" @change="selectTrigger(selected_car)">
                         <el-option v-for="(item, index) in connected_car" v-bind:key="index" v-bind:label="item" v-bind:value="item"></el-option>
                     </el-select>
                 </el-row>
                 <el-row :gutter="20">
-                    请选择站点
+                    站点选择
                     <el-select placeholder="站点" v-model="select_station">
                         <el-option v-for="(item, index) in station_info" v-bind:key="index" v-bind:label="item['name']" v-bind:value="item['name']"></el-option>
                     </el-select>
@@ -29,40 +25,27 @@
                     </el-form>
                 </el-row>
             </el-card>
-            
-            
             </el-col>
+
             <el-col :span="12">
-            <el-card shadow="hover" style="height:300px;">
-                选择数字孪生车辆(S开头)
-                <el-row :gutter="20">
-                    请选择车辆
-                    <el-select placeholder="数字孪生车辆VIN" v-model="virtual_selected_car">
-                        <el-option v-for="(item, index) in connected_car" v-bind:key="index" v-bind:label="item" v-bind:value="item"></el-option>
-                    </el-select>
-                </el-row>
-                <el-row>
-                    <el-form ref="form" :model="form" label-width="80px">
-                        <el-form-item>
-                                <el-button type="primary" @click="chooseRemote">提交</el-button>
-                                <el-button>取消</el-button>
-                        </el-form-item>
-                    </el-form>
-                </el-row>
-            </el-card>
-            <el-card shadow="hover" style="height:300px;">
-                车辆的信息
+            <el-card shadow="hover"  style="height:155px;">
+                车辆信息
                 <div v-if="info_avail == false">
                     Please select a car!
                 </div>
                 <div v-else>
-                    <div>x:{{(selected_car_pos["x"]).toFixed(3)}}</div>
-                    <div>y:{{(selected_car_pos["y"]).toFixed(3)}}</div>
-                    <div>z:{{(selected_car_pos["z"]).toFixed(3)}}</div>
+                    <div>position-x:{{(selected_car_pos["x"]).toFixed(3)}}</div>
+                    <div>position-y:{{(selected_car_pos["y"]).toFixed(3)}}</div>
+                    <div>position-z:{{(selected_car_pos["z"]).toFixed(3)}}</div>
                 </div>
             </el-card>
             </el-col>
         </el-row>
+        
+        <el-card shadow="hover" style="height:441px;">
+            云远程监控
+            <div id="play"></div>
+        </el-card>
     </div>
 </template>
 <script>

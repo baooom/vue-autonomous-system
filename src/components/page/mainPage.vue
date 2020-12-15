@@ -4,9 +4,9 @@
             <el-col :span="8">
                 <el-card shadow="hover" class="mgb20" style="height:252px;">
                     <div class="user-info">
-                        <img src="../../assets/img/img.jpg" class="user-avator" alt />
+                        <img src="../../assets/img/timg.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
+                            <div class="user-info-name">浙大智能汽车研究中心</div>
                             <div>{{role}}</div>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                 </el-card>
                 <el-card shadow="hover" style="height:600px;">
                     <div slot="header" class="clearfix">
-                        <span>园区车辆在线情况</span>
+                        <span>园区当前负载列表</span>
                     </div>
                     <div v-for="(item, index) in parks">{{item["name"]}}
                         <el-progress :percentage="0.0" color="#42b983"></el-progress>
@@ -66,7 +66,7 @@
                 </el-row>
                 <el-card shadow="hover" style="height:403px;">
                     <div slot="header" class="clearfix">
-                        <span>车辆情况</span>
+                        <span>车辆实时位置统计</span>
                         <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
                     </div>
                     <el-table :show-header="false" :data="cars_status" style="width:100%;">
@@ -79,12 +79,14 @@
                         </el-table-column>
                     </el-table>
                 </el-card>
+                <!--
                 <el-card shadow="hover" style="height:403px;">
                      <div class="schart-box">
                         <div class="content-title">统计图</div>
                         <schart class="schart" canvasId="ring" :options="options4"></schart>
                     </div>
                 </el-card>
+                -->
             </el-col>
         </el-row>
         

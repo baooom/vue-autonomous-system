@@ -2,20 +2,21 @@
     <div>
         <el-row :gutter="20">
             <el-col :span="12">
+                <el-card shadow="hover">
+                    <v-car-state @transferVin="getVin"></v-car-state>
+                </el-card>
+            </el-col>
+            <el-col :span="12">
                 <!--el-card shadow="hover">
                     地图监控<v-parser></v-parser>
                 </el-card-->
                 <el-card shadow="hover" >
-                    百度地图
+                    
                     <div id="container" style="height:600px"></div>
                 </el-card>
             </el-col>
             
-            <el-col :span="12">
-                <el-card shadow="hover">
-                    车辆监控<v-car-state @transferVin="getVin"></v-car-state>
-                </el-card>
-            </el-col>
+           
         </el-row>
     </div>
 </template>

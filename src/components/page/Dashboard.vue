@@ -16,7 +16,7 @@
                     </div>
                     <div class="user-info-list">
                         上次登录地点：
-                        <span>东莞</span>
+                        <span>杭州</span>
                     </div>
                 </el-card>
                 <el-card shadow="hover" style="height:252px;">

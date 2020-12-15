@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">数字孪生自动驾驶系统</div>
+        <div class="logo">园区自动驾驶车辆网约系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -130,7 +130,7 @@ export default {
 }
 .header .logo {
     float: left;
-    width: 250px;
+    width: 300px;
     line-height: 70px;
 }
 .header-right {
