@@ -58,11 +58,6 @@ export default {
             items: [
                 {
                     icon: 'el-icon-lx-home',
-                    index: 'first',
-                    title: '系统首页'
-                },
-                {
-                    icon: 'el-icon-lx-home',
                     index: 'dashboard',
                     title: '园区车辆数据统计'
                 },
@@ -75,21 +70,6 @@ export default {
                     icon: 'el-icon-lx-cascades',
                     index: 'table',
                     title: '园区网约调度任务'
-                },
-                {
-                    icon: 'el-icon-pie-chart',
-                    index: 'charts',
-                    title: '云远程遥控'
-                },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'upload',
-                    title: '地图管理(渲染高精度地图)'
-                },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'form',
-                    title: '园区管理'
                 }
             ]
         };
