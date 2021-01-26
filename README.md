@@ -23,3 +23,5 @@
 2.npm run serve //开启服务器
 
 3.npm run build //执行构建命令，生成的dist文件夹放在服务器下即可访问
+
+修改连接服务器配置：src/components/common/globalData.js
