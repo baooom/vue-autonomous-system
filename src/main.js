@@ -10,6 +10,14 @@ import './assets/css/icon.css';
 import './components/common/directives';
 import 'babel-polyfill';
 
+/*---------------------------------------*/
+import VideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'videojs-flash'
+Vue.use(VideoPlayer)
+/*---------------------------------------*/
+
+
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {
